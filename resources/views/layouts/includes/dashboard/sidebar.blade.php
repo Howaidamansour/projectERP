@@ -27,16 +27,16 @@
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ routeHelper('spendsIncome.spends.index', '0') }}">
                         <span class="nav-link-icon d-md-none d-lg-inline-block"> <i class="fa-solid fa-box"></i> </span>
-                        <span class="nav-link-title"> @lang('menu.units') </span>
+                        <span class="nav-link-title"> @lang('user.spends') </span>
                     </a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ routeHelper('spendsIncome.income.index', '1') }}">
                         <span class="nav-link-icon d-md-none d-lg-inline-block"> <i class="fa-solid fa-list"></i> </span>
-                        <span class="nav-link-title"> @lang('menu.categories') </span>
+                        <span class="nav-link-title"> @lang('user.income') </span>
                     </a>
                 </li>
 
