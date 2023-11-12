@@ -3,19 +3,21 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Models\Transaction;
 
-class SpendsController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index($type)
+    public function index()
     {
-        // dd(213);
-        $incomes = Transaction::where('type', $type)->get();
-        return view('dashboard.spendsIncome.index', compact('incomes', 'type'));
+        // dd(126753);
+
+        $categories = Category::all();
+        // dd($categories);
+        return view('dashboard.category.index', compact('categories'));
     }
 
     /**
@@ -31,7 +33,14 @@ class SpendsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+   
+        $data = $request->validate([
+            'name' => 'required|unique:categories'
+        ]);
+
+      Category::create($data);
+
+      return redirect()->back();
     }
 
     /**

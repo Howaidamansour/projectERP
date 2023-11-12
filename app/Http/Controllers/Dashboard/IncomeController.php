@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
+use Exception;
+use App\Models\Category;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\TransactionRequest;
+use App\Services\Transaction as TransactionService;
+use Session;
 
 class IncomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($type)
     {
-        // dd($t);
-        $incomes = Transaction::where('type', 0)->get();
-        return view('dashboard.spendsIncome.index', compact('incomes'));
+        // dd($type);
+        $rows = Transaction::where('type', $type)->get();
+        // dd($rows);
+        $categories = Category::all();
+        return view('dashboard.spendsIncome.index', compact('rows', 'type', 'categories'));
     }
 
     /**
@@ -29,9 +37,14 @@ class IncomeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TransactionRequest $request , TransactionService $service, $id = null)
     {
-        //
+        // dd($request->all());
+        // dd(2324235456);
+        $row = $service->handel($request->validated());
+// dd($row);
+return redirect()->back()->with('success', 'your message,here');  
+    
     }
 
     /**
@@ -45,9 +58,10 @@ class IncomeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $transation = Transaction::where('id', $id)->first();
+        // dd($transation);
     }
 
     /**

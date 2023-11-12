@@ -11,5 +11,11 @@ return [
     'amount' => 'Amount',
     'user' => 'User',
     'action' => 'Action',
+    'create_spend' => 'Add Spend',
+    'categories' => 'Categories',
+    'create_category' => 'Create Category',
+    'category_name' => 'Category Name',
+    'save' => 'Save',
+    'close' => 'Close',
 
 ];

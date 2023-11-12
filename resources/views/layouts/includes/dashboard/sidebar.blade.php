@@ -41,9 +41,9 @@
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ routeHelper('category.index')}}">
                         <span class="nav-link-icon d-md-none d-lg-inline-block"> <i class="fa-solid fa-user-check"></i> </span>
-                        <span class="nav-link-title"> @lang('menu.clients') </span>
+                        <span class="nav-link-title"> @lang('user.categories') </span>
                     </a>
                 </li>
 
