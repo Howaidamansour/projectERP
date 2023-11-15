@@ -1,4 +1,4 @@
-<div class="modal" id="create_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
    aria-hidden="true">
    <div class="modal-dialog">
       <div class="modal-content">
@@ -13,15 +13,15 @@
 
             <button type="button" class="close" data-dismiss="modal">&times;</button>
          </div>
-        
-            <form role="form" action="{{ routeHelper('spendsIncome.income.store')}}" method="post" >
-      
+     
+            <form role="form" method="post" >
+    
             @csrf
             <div class="modal-body pb-0" id="modal-loader-u">
 
                <div class="form-group">
                   <label class="control-label" for="name">{{ __('user.amount') }}</label>
-                  <input class="form-control" name="amount" id="amount" value="">
+                  <input class="form-control" name="amount2" id="amount2" value="">
                   <input type="hidden" value="{{$type}}" name="type" id="type">
                   {{-- <input type="hidden" value="{{$row->id}}" name="id" id="transaction_id"> --}}
                </div>
@@ -42,8 +42,7 @@
               
             </div>
             <div class="modal-footer d-flex justify-content-end">
-               <button class="btn btn-primary "  type="submit" id="btn_save">{{ __('user.save') }}</button>
-               <button class="btn btn-primary "  type="button" id="test_colse_save">test colse</button>
+               <button class="btn btn-primary "  type="button"  id="btn_edit_modal">{{ __('user.save') }}</button>
                <button type="button" class="btn btn-secondary"
                   data-dismiss="modal">{{ __('user.close') }}
                </button>
@@ -52,8 +51,3 @@
       </div>
    </div>
 </div>
-
-
-
-
-

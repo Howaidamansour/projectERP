@@ -17,6 +17,8 @@ return [
     'category_name' => 'اسم التصنيف',
     'save' => 'حفظ',
     'close' => 'الغاء' ,
+    'edit' => 'تعديل',
+    'delete' => 'حذف',
 
 ];
 

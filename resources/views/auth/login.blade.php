@@ -1,47 +1,63 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.auth')
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+@section('content')
+    <div class="card card-md">
+        <div class="card-body">
+            <h2 class="h2 text-center mb-4">Login to your account</h2>
+            <form method="POST" action="{{ route('login') }}" autocomplete="off" novalidate>
+                @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                <div class="mb-3">
+                    <label class="form-label required">Email address</label>
+                    <input type="text" class="form-control" placeholder="Type your username or email..." name="username" autocomplete="off" value="{{ old('username', env('LOGIN_NAME')) }}" autofocus>
+                    @include('layouts.includes.dashboard.validation-error', ['input' => 'username'])
+                    @include('layouts.includes.dashboard.validation-error', ['input' => 'email'])
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label required">
+                        Password
+                        @if (Route::has('password.request'))
+                            <span class="form-label-description">
+                                <a href="{{ route('password.request') }}"> {{ __('Forgot Your Password?') }}</a>
+                            </span>
+                        @endif
+                    </label>
+                    <div class="input-group input-group-flat">
+                        <input type="password" class="form-control password" placeholder="Your password" autocomplete="off" name="password" autocomplete="off" value="{{ env('LOGIN_PASS') }}">
+                        <span class="input-group-text">
+                            <a href="#" class="link-secondary show-password" data-show='false' title="Show password" data-bs-toggle="tooltip">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </span>
+                    </div>
+                    @include('layouts.includes.dashboard.validation-error', ['input' => 'password'])
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-check">
+                        <input type="checkbox" class="form-check-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} />
+                        <span class="form-check-label">Remember me on this device</span>
+                    </label>
+                </div>
+
+                <div class="form-footer">
+                    <button type="submit" class="btn btn-primary w-100">Sign in</button>
+                </div>
+            </form>
         </div>
+    </div>
+@endsection
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+@section('js')
+    <script>
+        $(function() {
+            $('body').on('click', '.show-password', function(e) {
+                e.preventDefault();
+                $(this).data('show', ! $(this).data('show'));
+                let type = $(this).data('show') ? 'text' : 'password';
+                $(this).closest('.input-group').find('input.password').attr('type', type);
+            });
+        });
+    </script>
+@endsection

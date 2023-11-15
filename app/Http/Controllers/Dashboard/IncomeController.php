@@ -43,7 +43,10 @@ class IncomeController extends Controller
         // dd(2324235456);
         $row = $service->handel($request->validated());
 // dd($row);
-return redirect()->back()->with('success', 'your message,here');  
+    if($request->expectsJson()){
+        return response()->json($row);
+    }
+    // return redirect()->back()->with('success', 'Saves Successfully');  
     
     }
 
@@ -58,25 +61,39 @@ return redirect()->back()->with('success', 'your message,here');
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Request $request , $id)
     {
+//         dd($id);
+// dd($request->all());
         $transation = Transaction::where('id', $id)->first();
-        // dd($transation);
+    
+        $cat = $transation->category->name;
+    
+        return response()->json([$transation, $cat]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TransactionRequest $request , TransactionService $service, $id)
     {
-        //
+        dd($id);
+        $row = $service->handel($request->validated(), $id);
+
+        return $row instanceof Exception
+                ? response()->json($row, 500)
+                : response()->json(['message' => 'Updated Sucessfuly'], 200);
+      
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy( $id)
     {
-        //
+        $transacton = Transaction::find($id);
+        // dd($transacton);
+        $transacton->delete();
+        return redirect()->back()->with('success', 'Deleted Successfully');  
     }
 }

@@ -17,5 +17,7 @@ return [
     'category_name' => 'Category Name',
     'save' => 'Save',
     'close' => 'Close',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
 
 ];

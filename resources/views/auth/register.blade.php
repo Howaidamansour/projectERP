@@ -1,52 +1,75 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+@extends('layouts.auth')
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+@section('content')
+<div class="card card-md">
+    <div class="card-body">
+        <h2 class="h2 text-center mb-4">{{ __('Register') }}</h2>
+        <form method="POST" action="{{ route('register') }}" autocomplete="off" novalidate>
+            @csrf
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+           
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+            <div class="mb-3">
+                <label class="form-label required">Username</label>
+                <input type="text" class="form-control" placeholder="Type your Username..." name="name" autocomplete="off" value="{{ old('user.name') }}" required>
+                @include('layouts.includes.dashboard.validation-error', ['input' => 'user.name'])
+            </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <div class="mb-3">
+                <label class="form-label required">Email</label>
+                <input type="email" class="form-control" placeholder="Type your email..." name="email" autocomplete="off" value="{{ old('user.email') }}" required>
+                @include('layouts.includes.dashboard.validation-error', ['input' => 'user.email'])
+            </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <div class="mb-2">
+                <label class="form-label required"> Password </label>
+                <div class="input-group input-group-flat">
+                    <input type="password" class="form-control password" placeholder="Your password" autocomplete="off" name="password" autocomplete="off" value="" required>
+                    <span class="input-group-text">
+                        <a href="#" class="link-secondary show-password" data-show='false' title="Show password" data-bs-toggle="tooltip">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    </span>
+                </div>
+                @include('layouts.includes.dashboard.validation-error', ['input' => 'user.password'])
+            </div>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+            <div class="mb-2">
+                <label class="form-label required"> Confirm Password </label>
+                <div class="input-group input-group-flat">
+                    <input type="password" class="form-control password" placeholder="Your password" autocomplete="off" name="password_confirmation" autocomplete="off" value="{{ env('LOGIN_PASS') }}" required>
+                    <span class="input-group-text">
+                        <a href="#" class="link-secondary show-password" data-show='false' title="Show password" data-bs-toggle="tooltip">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    </span>
+                </div>
+                @include('layouts.includes.dashboard.validation-error', ['input' => 'user.password_confirmation'])
+            </div>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+            <div class="form-footer">
+                <button type="submit" class="btn btn-primary w-100">Sign in</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+@section('js')
+    <script>
+        $(function() {
+            $('body').on('click', '.show-password', function(e) {
+                e.preventDefault();
+                $(this).data('show', ! $(this).data('show'));
+                let type = $(this).data('show') ? 'text' : 'password';
+                $(this).closest('.input-group').find('input.password').attr('type', type);
+            });
 
-            <x-primary-button class="ml-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+            $('form').submit(function(e) {
+                $(this).closest('.card').addClass('load');
+            });
+        });
+    </script>
+@endsection
+

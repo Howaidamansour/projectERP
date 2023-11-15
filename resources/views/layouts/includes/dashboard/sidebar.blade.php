@@ -27,7 +27,7 @@
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{ routeHelper('spendsIncome.spends.index', '0') }}">
+                    <a class="nav-link" href="{{ routeHelper('spendsIncome.income.index', '0') }}">
                         <span class="nav-link-icon d-md-none d-lg-inline-block"> <i class="fa-solid fa-box"></i> </span>
                         <span class="nav-link-title"> @lang('user.spends') </span>
                     </a>
@@ -47,33 +47,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block"> <i class="fa-solid fa-store"></i> </span>
-                        <span class="nav-link-title"> @lang('menu.stores') </span>
-                    </a>
-                </li>
-
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block"> <i class="fa-solid fa-store"></i> </span>
-                        <span class="nav-link-title"> @lang('menu.items') </span>
-                    </a>
-                </li>
-
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block"> <i class="fa-solid fa-print"></i> </span>
-                        <span class="nav-link-title"> @lang('menu.print_settings') </span>
-                    </a>
-                </li>
-
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block"> <i class="fa-solid fa-print"></i> </span>
-                        <span class="nav-link-title"> @lang('menu.invoices') </span>
-                    </a>
-                </li>
+               
             </ul>
         </div>
     </div>
